@@ -1,0 +1,38 @@
+# Build outputs
+**/build/
+**/out/
+**/target/
+
+# Gradle
+.gradle/
+**/.gradle/
+
+# Node
+**/node_modules/
+**/dist/
+
+# IDE - IntelliJ
+.idea/
+**/.idea/
+*.iml
+*.iws
+*.ipr
+
+# IDE - VSCode
+.vscode/
+
+# IDE - Eclipse
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+**/.env
+**/.env.local
