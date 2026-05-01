@@ -1,4 +1,4 @@
-package com.mysite.cafe.dto;
+package com.mysite.cafe.domain.cafevisit.dto;
 
 import java.time.LocalDateTime;
 

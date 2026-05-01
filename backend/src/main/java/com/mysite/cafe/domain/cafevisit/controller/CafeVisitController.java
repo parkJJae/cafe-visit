@@ -1,11 +1,11 @@
-package com.mysite.cafe.controller;
+package com.mysite.cafe.domain.cafevisit.controller;
 
-import com.mysite.cafe.dto.CafeVisitRequest;
-import com.mysite.cafe.dto.CafeVisitResponse;
-import com.mysite.cafe.entity.CafeVisit;
-import com.mysite.cafe.entity.User;
-import com.mysite.cafe.repository.CafeVisitRepository;
-import com.mysite.cafe.repository.UserRepository;
+import com.mysite.cafe.domain.cafevisit.dto.CafeVisitRequest;
+import com.mysite.cafe.domain.cafevisit.dto.CafeVisitResponse;
+import com.mysite.cafe.domain.cafevisit.entity.CafeVisit;
+import com.mysite.cafe.domain.user.entity.User;
+import com.mysite.cafe.domain.cafevisit.repository.CafeVisitRepository;
+import com.mysite.cafe.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

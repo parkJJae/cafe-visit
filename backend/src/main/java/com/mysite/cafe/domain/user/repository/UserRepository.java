@@ -1,6 +1,6 @@
-package com.mysite.cafe.repository;
+package com.mysite.cafe.domain.user.repository;
 
-import com.mysite.cafe.entity.User;
+import com.mysite.cafe.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
