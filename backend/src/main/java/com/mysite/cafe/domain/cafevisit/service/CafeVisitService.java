@@ -8,8 +8,10 @@ import com.mysite.cafe.domain.cafevisit.repository.CafeVisitRepository;
 import com.mysite.cafe.domain.user.entity.User;
 import com.mysite.cafe.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -98,5 +100,53 @@ public class CafeVisitService {
                 v.getVisitedAt(),
                 nickname
         );
+    }
+
+    //카페 방문 기록 단건 조회
+    public CafeVisitResponse findById(Long id) {
+        CafeVisit cafeVisit = cafeVisitRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "카페 방문 기록을 찾을 수 없습니다. id=" + id
+                ));
+        return toResponse(cafeVisit);
+    }
+
+    //카페 방문 기록 수정
+    @Transactional
+    public CafeVisitResponse update(Long id, CafeVisitRequest request) {
+        CafeVisit cafeVisit = cafeVisitRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "카페 방문 기록을 찾을 수 없습니다. id=" + id
+                ));
+
+        cafeVisit.update(
+                request.name(),
+                request.address(),
+                request.lat(),
+                request.lng(),
+                request.rating(),
+                request.priceLevel(),
+                request.hasOutlet(),
+                parseWifiSpeed(request.wifiSpeed()),
+                request.studyScore(),
+                request.memo(),
+                request.visitedAt()
+        );
+
+        return toResponse(cafeVisit);
+    }
+
+    //카페 방문 기록 삭제
+    @Transactional
+    public void delete(Long id) {
+        if (!cafeVisitRepository.existsById(id)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "카페 방문 기록을 찾을 수 없습니다. id=" + id
+            );
+        }
+        cafeVisitRepository.deleteById(id);
     }
 }

@@ -31,11 +31,38 @@ public class CafeVisitController {
     }
 
     //카페 방문 기록 전체 조회
-
     @GetMapping
     public ResponseEntity<ApiResponse<List<CafeVisitResponse>>> findAll() {
         List<CafeVisitResponse> response = cafeVisitService.findAll();
         return ResponseEntity
                 .ok(ApiResponse.success(response));
+    }
+
+    //카페 방문 기록 단건 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<CafeVisitResponse>> findById(
+            @PathVariable Long id
+    ) {
+        CafeVisitResponse response = cafeVisitService.findById(id);
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    //카페 방문 기록 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<CafeVisitResponse>> update(
+            @PathVariable Long id,
+            @RequestBody CafeVisitRequest request
+    ) {
+        CafeVisitResponse response = cafeVisitService.update(id, request);
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    //카페 방문 기록 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> delete(
+            @PathVariable Long id
+    ) {
+        cafeVisitService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
