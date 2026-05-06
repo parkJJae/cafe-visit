@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { getAllCafes } from "../api/cafeApi";
+import { getAllCafes } from "../api/CafeApi";
 
 export default function CafeList() {
     const [cafes, setCafes] = useState([]);
 
     useEffect(() => {
-        getAllCafes().then((res) => setCafes(res.data));
+        getAllCafes()
+            .then((res) => setCafes(res.data))
+            .catch((err) => console.error("카페 목록 불러오기 실패:", err));
     }, []);
 
     return (

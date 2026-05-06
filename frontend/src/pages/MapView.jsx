@@ -1,6 +1,6 @@
 // src/pages/MapView.jsx
 import { useEffect, useMemo, useRef, useState } from "react";
-import axios from "axios";
+import { getAllCafes } from "../api/CafeApi";
 import { loadKakaoMaps } from "../lib/kakaoLoader";
 
 export default function MapView() {
@@ -8,7 +8,7 @@ export default function MapView() {
     const [selected, setSelected] = useState(null);
     const [search, setSearch] = useState("");
 
-    // 🔹 카카오 지도 관련
+    // 카카오 지도 관련
     const mapRef = useRef(null);          // 실제 지도 div
     const [map, setMap] = useState(null); // kakao.maps.Map 인스턴스
     const markerRef = useRef(null);       // 선택된 카페 마커 1개만 관리
@@ -17,16 +17,16 @@ export default function MapView() {
     // 1. 첫 로딩 시 전체 카페 목록 불러오기
     // ─────────────────────────────────────
     useEffect(() => {
-        axios
-            .get("http://localhost:8080/api/cafes")
+        getAllCafes()
             .then((res) => {
-                setCafes(res.data);
-                if (res.data.length > 0) {
-                    setSelected(res.data[0]);
+                const list = res.data || [];
+                setCafes(list);
+                if (list.length > 0) {
+                    setSelected(list[0]);
                 }
             })
             .catch((err) => {
-                console.error("카페 목록 불러오기 실패", err);
+                console.error("카페 목록 불러오기 실패:", err);
             });
     }, []);
 
@@ -38,6 +38,8 @@ export default function MapView() {
 
         loadKakaoMaps()
             .then((kakao) => {
+                if (!mapRef.current) return;
+
                 const center = new kakao.maps.LatLng(37.5665, 126.9780); // 서울 시청 근처
                 mapInstance = new kakao.maps.Map(mapRef.current, {
                     center,
@@ -59,12 +61,11 @@ export default function MapView() {
     // ─────────────────────────────────────
     useEffect(() => {
         if (!map || !selected) return;
-        if (!selected.lat || !selected.lng) return; // 좌표 없는 경우 스킵
+        if (!selected.lat || !selected.lng) return;
 
         const kakao = window.kakao;
         const pos = new kakao.maps.LatLng(selected.lat, selected.lng);
 
-        // 마커가 없으면 새로 만들고, 있으면 위치만 옮김
         if (!markerRef.current) {
             markerRef.current = new kakao.maps.Marker({
                 map,
@@ -92,7 +93,6 @@ export default function MapView() {
         });
     }, [cafes, search]);
 
-    // 검색 결과가 바뀔 때, 선택된 카페가 목록에 없으면 첫 번째로 교체
     useEffect(() => {
         if (
             filteredCafes.length > 0 &&
@@ -109,7 +109,6 @@ export default function MapView() {
         <div className="map-page">
             {/* 왼쪽 사이드바 */}
             <section className="map-sidebar">
-                {/* 상단 뒤로가기 바 */}
                 <div className="top-bar" style={{ paddingLeft: 0, paddingRight: 0 }}>
                     <button
                         type="button"
@@ -125,13 +124,11 @@ export default function MapView() {
 
                 <h2 className="sidebar-title">카페 방문 기록 지도</h2>
                 <p className="sidebar-sub">
-                    내가/다른 사람이 등록한 카페를 한눈에 모아보는 공간이에요.
+                    등록한 카페들을 지도 위에서 한 번에 볼 수 있어요.
                     <br />
-                    검색해서 원하는 카페의 콘센트, 와이파이, 공부 분위기를 빠르게
-                    확인해보세요.
+                    이름이나 지점으로 검색해서 콘센트·와이파이·공부 분위기까지 빠르게 확인해보세요.
                 </p>
 
-                {/* 🔍 검색 입력창 */}
                 <div className="map-search-row">
                     <input
                         className="map-search-input"
@@ -142,7 +139,6 @@ export default function MapView() {
                     />
                 </div>
 
-                {/* 카페 리스트 */}
                 <div className="sidebar-list">
                     {filteredCafes.map((cafe) => (
                         <button
@@ -164,7 +160,7 @@ export default function MapView() {
                                 {cafe.hasOutlet && <span>🔌 콘센트 있음</span>}
                                 {cafe.wifiSpeed && <span>📶 {cafe.wifiSpeed}</span>}
                                 {cafe.registeredBy && (
-                                    <span>👤 {cafe.registeredBy} 님</span>
+                                    <span>👤 {cafe.registeredBy}</span>
                                 )}
                             </div>
                         </button>
@@ -172,9 +168,9 @@ export default function MapView() {
 
                     {filteredCafes.length === 0 && (
                         <div className="cafe-empty">
-                            🔍 검색 결과가 없어요.
+                            검색 결과가 없어요.
                             <br />
-                            다른 이름이나 지점으로 다시 검색해볼까요?
+                            다른 이름이나 지점으로 검색해보세요.
                         </div>
                     )}
                 </div>
@@ -182,20 +178,19 @@ export default function MapView() {
 
             {/* 오른쪽: 선택된 카페 카드 + 실제 카카오 지도 */}
             <section className="map-container-wrapper">
-                {/* 위쪽: 선택된 카페 정보 카드 */}
                 <div className="selected-cafe-card">
                     {selected ? (
                         <>
-                            <div className="fake-map-chip">현재 선택된 카페</div>
+                            <div className="fake-map-chip">선택된 카페</div>
 
                             <h3 className="fake-map-title">{selected.name}</h3>
                             <p className="fake-map-address">{selected.address}</p>
 
                             <div className="fake-map-meta">
                                 {selected.rating && (
-                                    <span>⭐ {selected.rating} / 5 만족도</span>
+                                    <span>⭐ {selected.rating} / 5</span>
                                 )}
-                                {selected.hasOutlet && <span>🔌 콘센트 가능</span>}
+                                {selected.hasOutlet && <span>🔌 콘센트</span>}
                                 {selected.wifiSpeed && <span>📶 {selected.wifiSpeed}</span>}
                             </div>
 
@@ -208,7 +203,7 @@ export default function MapView() {
 
                             {selected.registeredBy && (
                                 <div className="fake-map-footer">
-                                    {selected.registeredBy} 님이 남긴 기록
+                                    {selected.registeredBy} 님의 기록
                                 </div>
                             )}
                         </>
@@ -216,12 +211,11 @@ export default function MapView() {
                         <div className="fake-map-card-empty">
                             아직 선택된 카페가 없어요.
                             <br />
-                            왼쪽에서 카페를 선택하거나, 위에서 검색해보세요.
+                            왼쪽 목록에서 카페를 골라보세요.
                         </div>
                     )}
                 </div>
 
-                {/* 아래쪽: 실제 카카오 지도 */}
                 <div className="map-real-container">
                     <div ref={mapRef} className="real-map" />
                 </div>

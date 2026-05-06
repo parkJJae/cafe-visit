@@ -1,6 +1,6 @@
 // src/pages/NewCafe.jsx
 import { useState } from "react";
-import axios from "axios";
+import { createCafe } from "../api/CafeApi";
 import KakaoSearchModal from "../components/KakaoSearchModal";
 
 export default function NewCafe({ onBack }) {
@@ -14,13 +14,12 @@ export default function NewCafe({ onBack }) {
         studyScore: 3,
         memo: "",
         nickname: "",
-        // 카카오에서 받아올 좌표
         lat: null,
         lng: null,
     });
 
-    const [status, setStatus] = useState(null); // null | "loading" | "success" | "error"
-    const [isKakaoOpen, setIsKakaoOpen] = useState(false); // 카카오 모달 열림 여부
+    const [status, setStatus] = useState(null);
+    const [isKakaoOpen, setIsKakaoOpen] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -30,7 +29,6 @@ export default function NewCafe({ onBack }) {
         }));
     };
 
-    // ✅ 카카오 모달에서 장소 선택했을 때
     const handlePlaceSelect = (place) => {
         setForm((prev) => ({
             ...prev,
@@ -47,7 +45,6 @@ export default function NewCafe({ onBack }) {
         setStatus("loading");
 
         try {
-            // 숫자 필드는 숫자로 변환
             const payload = {
                 name: form.name,
                 address: form.address,
@@ -58,19 +55,13 @@ export default function NewCafe({ onBack }) {
                 studyScore: Number(form.studyScore) || null,
                 memo: form.memo,
                 nickname: form.nickname,
-                // 👉 카카오에서 받은 좌표가 있으면 그걸, 없으면 기존 기본값
                 lat: form.lat ?? 37.4979,
                 lng: form.lng ?? 127.0276,
                 visitedAt: new Date().toISOString(),
             };
 
-            await axios.post("http://localhost:8080/api/cafes", payload, {
-                headers: { "Content-Type": "application/json" },
-            });
-
+            await createCafe(payload);
             setStatus("success");
-            // 성공 시 일부 폼 리셋하고 싶으면 아래 주석 해제
-            // setForm((prev) => ({ ...prev, name: "", address: "", memo: "" }));
         } catch (err) {
             console.error(err);
             setStatus("error");
@@ -79,7 +70,6 @@ export default function NewCafe({ onBack }) {
 
     return (
         <div className="new-page">
-            {/* 상단 바 */}
             <header className="top-bar">
                 {onBack && (
                     <button className="top-back" onClick={onBack}>
@@ -91,12 +81,13 @@ export default function NewCafe({ onBack }) {
 
             <main className="new-main">
                 <form className="new-form" onSubmit={handleSubmit}>
-                    <h2>새 카페 기록 추가</h2>
-                    <p className="new-sub">
-                        최소 정보만 적어도 괜찮아요. 나중에 다시 와서 수정해도 돼요.
-                    </p>
+                    <div>
+                        <h2>새 카페 기록 추가</h2>
+                        <p className="new-sub">
+                            최소 정보만 적어도 괜찮아요. 나중에 다시 와서 수정해도 돼요.
+                        </p>
+                    </div>
 
-                    {/* 카페 이름 + 카카오 검색 버튼 */}
                     <label className="field">
                         <div className="field-label-row">
                             <span>카페 이름</span>
@@ -105,13 +96,14 @@ export default function NewCafe({ onBack }) {
                                 className="kakao-inline-btn"
                                 onClick={() => setIsKakaoOpen(true)}
                             >
-                                카카오맵에서 찾기
+                                🔍 카카오맵에서 찾기
                             </button>
                         </div>
                         <input
                             name="name"
                             value={form.name}
                             onChange={handleChange}
+                            placeholder="예) 스타벅스 강남역점"
                             required
                         />
                     </label>
@@ -122,6 +114,7 @@ export default function NewCafe({ onBack }) {
                             name="address"
                             value={form.address}
                             onChange={handleChange}
+                            placeholder="예) 서울 강남구 강남대로 123"
                             required
                         />
                     </label>
@@ -179,17 +172,15 @@ export default function NewCafe({ onBack }) {
                         </label>
                     </div>
 
-                    <div className="field-row">
-                        <label className="field checkbox">
-                            <input
-                                type="checkbox"
-                                name="hasOutlet"
-                                checked={form.hasOutlet}
-                                onChange={handleChange}
-                            />
-                            🔌 콘센트 있음
-                        </label>
-                    </div>
+                    <label className="field checkbox">
+                        <input
+                            type="checkbox"
+                            name="hasOutlet"
+                            checked={form.hasOutlet}
+                            onChange={handleChange}
+                        />
+                        🔌 콘센트 있음
+                    </label>
 
                     <label className="field">
                         <span>닉네임</span>
@@ -197,7 +188,7 @@ export default function NewCafe({ onBack }) {
                             name="nickname"
                             value={form.nickname}
                             onChange={handleChange}
-                            placeholder="재현, JAY 같은 이름"
+                            placeholder="기록을 남기는 사람"
                             required
                         />
                     </label>
@@ -209,7 +200,7 @@ export default function NewCafe({ onBack }) {
                             value={form.memo}
                             onChange={handleChange}
                             rows={3}
-                            placeholder="좌석 분위기, 소음, 추천 메뉴 등 자유롭게 적어주세요."
+                            placeholder="좌석 분위기, 소음, 추천 메뉴 등 자유롭게 적어주세요"
                         />
                     </label>
 
@@ -222,17 +213,16 @@ export default function NewCafe({ onBack }) {
                     </button>
 
                     {status === "success" && (
-                        <p className="status success">✅ 등록이 완료되었습니다!</p>
+                        <p className="status success">등록이 완료되었어요!</p>
                     )}
                     {status === "error" && (
                         <p className="status error">
-                            ⚠️ 등록 중 오류가 발생했습니다. 백엔드 서버와 주소를 확인해주세요.
+                            등록 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.
                         </p>
                     )}
                 </form>
             </main>
 
-            {/* 🔍 카카오 검색 모달 */}
             {isKakaoOpen && (
                 <KakaoSearchModal
                     onSelect={handlePlaceSelect}
