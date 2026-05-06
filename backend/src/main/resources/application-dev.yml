@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:cafe_log;MODE=MySQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # 서버 시작할 때 테이블 자동 생성, 종료할 떄 삭제
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

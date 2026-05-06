@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    //비즈니스 예외 (Service에서 throw new ResponseStatusException(...) 으로 던짐)
+    //비즈니스 예외 (Service에서 throw new ResponseStatusException 으로 던짐)
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ApiResponse<Void>> handleResponseStatusException(ResponseStatusException e) {
         log.warn("Business error: {}", e.getReason());
