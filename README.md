@@ -5,7 +5,7 @@
 
 <br>
 
-## 🖼 미리보기
+## 미리보기
 
 <img width="900" alt="카공맵 메인 페이지" src="https://github.com/user-attachments/assets/6fb8c583-e1ce-4932-a1a5-fdadaa9d6430" /> <br>
 *▲ 메인 페이지*
@@ -27,7 +27,7 @@
 
 이런 정보를 **실제로 다녀온 사람들이 직접 기록**해서, 다음 카공족이 시간을 낭비하지 않도록 하는 게 카공맵의 목표입니다.
 
-### 🎯 핵심 가치
+### 핵심 가치
 
 - **접근성** — 회원가입/로그인 없이 누구나 즉시 이용
 - **신뢰성** — 직접 다녀온 사람의 기록 (별점, 콘센트 유무, 와이파이 속도, 메모)
@@ -35,7 +35,7 @@
 
 <br>
 
-## 🏗 시스템 아키텍처
+## 시스템 아키텍처
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/91a245ef-330a-4cfb-ad2d-9bfdb7e17579" alt="카공맵 시스템 아키텍처" width="780"/>
@@ -64,7 +64,7 @@
 
 <br>
 
-## 📂 프로젝트 구조 (모노레포)
+## 프로젝트 구조 (모노레포)
 
 ```
 cagongmap/
@@ -74,14 +74,14 @@ cagongmap/
 
 각 폴더의 상세 문서는 아래 링크를 참고해 주세요.
 
-- 📘 **[Backend README](./backend/README.md)** — 아키텍처, 리팩토링 스토리, 트러블슈팅
+- **[Backend README](./backend/README.md)** — 아키텍처, 리팩토링 스토리, 트러블슈팅
 - (Frontend는 백엔드 중심 포트폴리오라 별도 문서 없음)
 
 <br>
 
 
 
-## ✨ 주요 기능
+## 주요 기능
 
 | 기능 | 설명 |
 |---|---|
@@ -92,11 +92,11 @@ cagongmap/
 
 <br>
 
-## 📖 학습 포인트 (기술 블로그)
+## 학습 포인트 (기술 블로그)
 
 프로젝트 진행 중 마주친 문제와 해결 과정을 글로 정리했습니다.
 
-- 📝 **[N+1 문제를 발견하고 해결한 이야기](https://velog.io/@qwg2825/N1-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EB%B0%9C%EA%B2%AC%ED%95%98%EA%B3%A0-%ED%95%B4%EA%B2%B0%ED%95%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0)** — Fetch Join으로 6번 쿼리를 1번으로
+- **[N+1 문제를 발견하고 해결한 이야기](https://velog.io/@qwg2825/N1-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EB%B0%9C%EA%B2%AC%ED%95%98%EA%B3%A0-%ED%95%B4%EA%B2%B0%ED%95%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0)** — Fetch Join으로 6번 쿼리를 1번으로
 
 <br>
 
