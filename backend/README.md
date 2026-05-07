@@ -142,7 +142,7 @@ List<CafeVisit> findAllWithUser();
 
 상세한 발견 과정과 해결 흐름은 별도 글로 정리했습니다.
 
-📝 **[N+1 문제를 발견하고 해결한 이야기 (Velog)](https://velog.io/@qwg2825/N1-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EB%B0%9C%EA%B2%AC%ED%95%98%EA%B3%A0-%ED%95%B4%EA%B2%B0%ED%95%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0)**
+ **[N+1 문제를 발견하고 해결한 이야기 (Velog)](https://velog.io/@qwg2825/N1-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EB%B0%9C%EA%B2%AC%ED%95%98%EA%B3%A0-%ED%95%B4%EA%B2%B0%ED%95%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0)**
 
 <br>
 
@@ -175,7 +175,7 @@ List<CafeVisit> findAllWithUser();
 
 <br>
 
-## 🎯 의사결정 기록
+## 의사결정 기록
 
 프로젝트를 진행하며 **하지 않기로 결정한 것들**입니다. 모든 기능을 다 구현하기보다, 프로젝트의 핵심 가치(접근성)에 집중하기 위한 의도적 선택입니다.
 
