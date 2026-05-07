@@ -9,11 +9,10 @@ export default function Home({ onGotoMap, onGotoNew }) {
             <main className="home-inner">
                 <section className="home-hero-card">
                     <div className="home-hero-main">
-                        <span className="home-pill">☕ 카페 방문 기록</span>
+                        <span className="home-pill">☕ 카공족을 위한 카페 방문 기록</span>
 
                         <h1 className="home-title">
-                            내가 다녀온 카페,<br />
-                            <span className="home-title-emph">지도</span>로 다시 만나요
+                            <span className="home-title-emph">여기, 콘센트 있을까?</span><br />카공족이 직접 남긴<br />기록을 확인해요
                         </h1>
 
                         <p className="home-sub">
@@ -72,7 +71,7 @@ export default function Home({ onGotoMap, onGotoNew }) {
                     <article className="home-card">
                         <div className="home-card-header">
                             <span className="home-card-tag home-card-tag--map">지도</span>
-                            <h2 className="home-card-title">지도에서 한눈에</h2>
+                            <h2 className="home-card-title">내 주변 카공 카페 찾기</h2>
                         </div>
 
                         <p className="home-card-desc">
