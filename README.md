@@ -7,8 +7,10 @@
 
 ## 🖼 미리보기
 
+### 메인 페이지
 <img width="900" alt="카공맵 메인 페이지" src="https://github.com/user-attachments/assets/6fb8c583-e1ce-4932-a1a5-fdadaa9d6430" />
 
+### 지도 페이지
 <img width="900" alt="카공맵 지도 페이지" src="https://github.com/user-attachments/assets/fce4ee30-8a10-432f-8bd1-599a4589de4b" />
 
 
