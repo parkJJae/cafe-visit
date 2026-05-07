@@ -52,7 +52,7 @@ public class CafeVisitService {
 
     //카페 방문 기록 전체 조회
     public List<CafeVisitResponse> findAll() {
-        return cafeVisitRepository.findAll().stream()
+        return cafeVisitRepository.findAllWithUser().stream()
                 .map(this::toResponse)
                 .toList();
     }
