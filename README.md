@@ -7,9 +7,9 @@
 
 ## 🖼 미리보기
 
-<img width="900" alt="카공맵 메인 페이지" src="<img width="1079" height="909" alt="image" src="https://github.com/user-attachments/assets/6fb8c583-e1ce-4932-a1a5-fdadaa9d6430" />" />
+<img width="900" alt="카공맵 메인 페이지" src="https://github.com/user-attachments/assets/6fb8c583-e1ce-4932-a1a5-fdadaa9d6430" />
 
-<img width="900" alt="카공맵 지도 페이지" src="<img width="1891" height="710" alt="image" src="https://github.com/user-attachments/assets/fce4ee30-8a10-432f-8bd1-599a4589de4b" />" />
+<img width="900" alt="카공맵 지도 페이지" src="https://github.com/user-attachments/assets/fce4ee30-8a10-432f-8bd1-599a4589de4b" />
 
 
 <br>
@@ -35,7 +35,7 @@
 ## 🏗 시스템 아키텍처
 
 <p align="center">
-  <img src="<img width="989" height="518" alt="아키텍처" src="https://github.com/user-attachments/assets/91a245ef-330a-4cfb-ad2d-9bfdb7e17579" />" alt="카공맵 시스템 아키텍처" width="780"/>
+  <img src="https://github.com/user-attachments/assets/91a245ef-330a-4cfb-ad2d-9bfdb7e17579" alt="카공맵 시스템 아키텍처" width="780"/>
 </p>
 
 브라우저 → React(Vite) + 카카오맵 → Spring Boot REST API → JPA → H2/MySQL 으로 이어지는 단순한 4-tier 구조입니다.
