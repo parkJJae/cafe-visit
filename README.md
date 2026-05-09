@@ -42,7 +42,7 @@
 </p>
 
 브라우저 → React(Vite) + 카카오맵 → Spring Boot REST API → JPA → H2/MySQL 으로 이어지는 단순한 4-tier 구조입니다.
-프론트는 axios 인터셉터로 공통 응답 포맷(`ApiResponse`)을 자동 처리하고, 백엔드는 환경 프로파일에 따라 H2(dev) / MySQL(prod) DB를 자동으로 선택합니다.
+프론트는 axios 인터셉터로 공통 응답 포맷(ApiResponse)을 자동 처리하고, 백엔드는 환경 프로파일에 따라 H2(dev) / MySQL(prod) DB를 자동으로 선택합니다.
 
 <br>
 
