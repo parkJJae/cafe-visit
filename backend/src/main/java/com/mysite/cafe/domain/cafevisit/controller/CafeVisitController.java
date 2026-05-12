@@ -65,4 +65,13 @@ public class CafeVisitController {
         cafeVisitService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    //카페 검색
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<List<CafeVisitResponse>>> search(
+            @RequestParam String keyword
+    ) {
+        List<CafeVisitResponse> response = cafeVisitService.searchByName(keyword);
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
 }
